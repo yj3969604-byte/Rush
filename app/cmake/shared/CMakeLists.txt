@@ -1,0 +1,31 @@
+set(SHARED_COMMON_SRCS
+        ../../include/shared/plugin.h
+)
+set(SHARED_SRCS
+        ${SHARED_COMMON_SRCS}
+        ../../src/shared/plugin.cpp
+)
+append_platform_sources(SHARED_SRCS)
+set(SHARED_TARGET "shared")
+if (OS_MAC)
+    set(SHARED_HELPER_TARGET "shared_helper")
+endif ()
+if (OS_LINUX OR OS_WINDOWS)
+    add_logical_target("libcef_lib" "${CEF_LIB_DEBUG}" "${CEF_LIB_RELEASE}")
+endif ()
+include_directories(../../include)
+if (OS_WINDOWS)
+    set_app_source_groups("${SHARED_SRCS}")
+    #    add_library(${SHARED_TARGET} STATIC ${SHARED_SRCS})
+    add_library(${SHARED_TARGET} SHARED ${SHARED_SRCS})
+    target_compile_definitions(${SHARED_TARGET} PRIVATE BUILDING_PLUGIN_DLL)
+    set_app_library_target_properties(${SHARED_TARGET})
+    add_dependencies(${SHARED_TARGET} libcef_dll_wrapper)
+    target_link_libraries(${SHARED_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
+    if (USE_SANDBOX)
+        add_logical_target("cef_sandbox_lib" "${CEF_SANDBOX_LIB_DEBUG}" "${CEF_SANDBOX_LIB_RELEASE}")
+        target_link_libraries(${SHARED_TARGET} cef_sandbox_lib ${CEF_SANDBOX_STANDARD_LIBS})
+    endif ()
+    copy_files("${SHARED_TARGET}" "${CEF_BINARY_FILES}" "${CEF_BINARY_DIR}" "${APP_TARGET_OUT_DIR}")
+    copy_files("${SHARED_TARGET}" "${CEF_RESOURCE_FILES}" "${CEF_RESOURCE_DIR}" "${APP_TARGET_OUT_DIR}")
+endif ()
