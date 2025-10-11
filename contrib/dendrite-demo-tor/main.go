@@ -136,15 +136,6 @@ func main() {
 	monolith := setup.Monolith{
 		Config:    cfg,
 		Client:    httpClient,
-		FedClient: federationClient,
-		KeyRing:   keyRing,
-
-		AppserviceAPI: asAPI,
-		// always use the concrete impl here even in -http mode because adding public routes
-		// must be done on the concrete impl not an HTTP client else fedapi will call itself
-		FederationAPI: fsAPI,
-		RoomserverAPI: rsAPI,
-		UserAPI:       userAPI,
 	}
 	monolith.AddAllPublicRoutes(processCtx, cfg, routers, cm, &natsInstance, caches, caching.EnableMetrics)
 
@@ -172,3 +163,4 @@ func main() {
 	// We want to block forever to let the HTTP and HTTPS handler serve the APIs
 	basepkg.WaitForShutdown(processCtx)
 }
+
