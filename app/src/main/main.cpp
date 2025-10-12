@@ -10,7 +10,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
     PluginInstanceHandle h1 = PluginCreateInstance(
             "profileA",
             "MyUaAgent/1.0",
-            "http://127.0.0.1:7890",
+            "http://127.0.0.1:7891",
             "",
             "",
             &error_code
@@ -24,7 +24,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
     PluginInstanceHandle h2 = PluginCreateInstance(
             "profileB",
             "MyUaAgent/2.0",
-            "http://127.0.0.1:7890",
+            "http://127.0.0.1:7891",
             "",
             "",
             &error_code
@@ -56,3 +56,4 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
     CefShutdown();
     return 0;
 }
+
