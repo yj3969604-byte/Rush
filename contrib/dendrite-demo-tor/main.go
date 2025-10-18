@@ -123,7 +123,7 @@ func main() {
 	keyRing := fsAPI.KeyRing()
 
 	// The underlying roomserver implementation needs to be able to call the fedsender.
-	// This is different to rsAPI which can be the http client which doesn't need this
+	// This is different to rsAPI which can be the http client which doesn't need this xxx
 	// dependency. Other components also need updating after their dependencies are up.
 	rsAPI.SetFederationAPI(fsAPI, keyRing)
 
@@ -163,4 +163,5 @@ func main() {
 	// We want to block forever to let the HTTP and HTTPS handler serve the APIs
 	basepkg.WaitForShutdown(processCtx)
 }
+
 
