@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="40dp"
+    android:background="@drawable/plugin_back">
+
+    <TextView
+        android:id="@+id/float_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="long click 5s close."
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+</RelativeLayout>
